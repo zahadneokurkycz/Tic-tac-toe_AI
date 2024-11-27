@@ -236,14 +236,18 @@ class GFG
         {
             Move bestMove = findBestMove(board);
 
-            Console.Write("The Optimal Move is :\n");
+            Console.Write("My move is: ");
             Console.Write("ROW: {0} COL: {1}\n\n", bestMove.row, bestMove.col);
             board[bestMove.row, bestMove.col] = 'x';
             Console.Write("\n{0}|{1}|{2}", board[0, 0], board[0, 1], board[0, 2]);
             Console.Write("\n{0}|{1}|{2}", board[1, 0], board[1, 1], board[1, 2]);
             Console.Write("\n{0}|{1}|{2}", board[2, 0], board[2, 1], board[2, 2]);
             //Have the bot won?
-            if (haswon('p', board))
+            if (haswon(player, board)) {
+                Console.WriteLine("\n I won!\n\n(Exit by pressing any button)");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
 
 
                 Console.Write("\nYour move: Row: ");
@@ -251,8 +255,30 @@ class GFG
             Console.Write(" Col: ");
             inptcol = int.Parse(Console.ReadLine()) - 1;
             Console.WriteLine("{0},{1}", inptrow, inptcol);
-            board[inptrow, inptcol] = 'o';
-
+            //Is the move invalid?
+            if (board[inptrow, inptcol] != '_') {
+                Console.WriteLine("\nInvalid move. Please try again.\n(If you do another invalid move your round will be skipped)\n\n");
+                Console.Write("\nYour move: Row: ");
+                inptrow = int.Parse(Console.ReadLine()) - 1;
+                Console.Write(" Col: ");
+                inptcol = int.Parse(Console.ReadLine()) - 1;
+                Console.WriteLine("Your move is {0},{1}", inptrow, inptcol);
+                if (board[inptrow, inptcol] == '_') {
+                    board[inptrow, inptcol] = 'o';
+                }
+            } else {
+                board[inptrow, inptcol] = 'o';
+            }
+            
+            //Have the player won?
+            if (haswon(opponent, board)) {
+                Console.Write("\n{0}|{1}|{2}", board[0, 0], board[0, 1], board[0, 2]);
+                Console.Write("\n{0}|{1}|{2}", board[1, 0], board[1, 1], board[1, 2]);
+                Console.Write("\n{0}|{1}|{2}", board[2, 0], board[2, 1], board[2, 2]);
+                Console.WriteLine("\n\n Look, you won! Congrats on beating me!\n\n(Exit by pressing any button)");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
         }
     }
 }
