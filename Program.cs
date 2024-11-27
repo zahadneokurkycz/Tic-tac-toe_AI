@@ -1,4 +1,4 @@
-// C# program to find the 
+﻿// C# program to find the 
 // next optimal move for a player 
 using System;
 using System.Collections.Generic;
@@ -243,35 +243,41 @@ class GFG
             Console.Write("\n{0}|{1}|{2}", board[1, 0], board[1, 1], board[1, 2]);
             Console.Write("\n{0}|{1}|{2}", board[2, 0], board[2, 1], board[2, 2]);
             //Have the bot won?
-            if (haswon(player, board)) {
+            if (haswon(player, board))
+            {
                 Console.WriteLine("\n I won!\n\n(Exit by pressing any button)");
                 Console.ReadKey();
                 Environment.Exit(0);
             }
 
 
-                Console.Write("\nYour move: Row: ");
+            Console.Write("\nYour move: Row: ");
             inptrow = int.Parse(Console.ReadLine()) - 1;
             Console.Write(" Col: ");
             inptcol = int.Parse(Console.ReadLine()) - 1;
             Console.WriteLine("{0},{1}", inptrow, inptcol);
             //Is the move invalid?
-            if (board[inptrow, inptcol] != '_') {
+            if (board[inptrow, inptcol] != '_')
+            {
                 Console.WriteLine("\nInvalid move. Please try again.\n(If you do another invalid move your round will be skipped)\n\n");
                 Console.Write("\nYour move: Row: ");
                 inptrow = int.Parse(Console.ReadLine()) - 1;
                 Console.Write(" Col: ");
                 inptcol = int.Parse(Console.ReadLine()) - 1;
                 Console.WriteLine("Your move is {0},{1}", inptrow, inptcol);
-                if (board[inptrow, inptcol] == '_') {
+                if (board[inptrow, inptcol] == '_')
+                {
                     board[inptrow, inptcol] = 'o';
                 }
-            } else {
+            }
+            else
+            {
                 board[inptrow, inptcol] = 'o';
             }
-            
+
             //Have the player won?
-            if (haswon(opponent, board)) {
+            if (haswon(opponent, board))
+            {
                 Console.Write("\n{0}|{1}|{2}", board[0, 0], board[0, 1], board[0, 2]);
                 Console.Write("\n{0}|{1}|{2}", board[1, 0], board[1, 1], board[1, 2]);
                 Console.Write("\n{0}|{1}|{2}", board[2, 0], board[2, 1], board[2, 2]);
