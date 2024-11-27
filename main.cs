@@ -27,17 +27,16 @@ class GFG
     static Boolean haswon(char p, char[,] board)
     {
         //3x Horizontálně
-        if(p == board[0,0] && p == board[0,1] && p == board[0,2]) return true;
-        if(p == board[1,0] && p == board[1,1] && p == board[1,2]) return true;
-        if(p == board[2,0] && p == board[2,1] && p == board[2,2]) return true;
+        if (p == board[0, 0] && p == board[0, 1] && p == board[0, 2]) return true;
+        if (p == board[1, 0] && p == board[1, 1] && p == board[1, 2]) return true;
+        if (p == board[2, 0] && p == board[2, 1] && p == board[2, 2]) return true;
         //3x Vertikálně
-        if(p == board[0,0] && p == board[0,0] && p == board[0,0]) return true;
-        if(p == board[0,0] && p == board[0,0] && p == board[0,0]) return true;
-        if(p == board[0,0] && p == board[0,0] && p == board[0,0]) return true;
+        if (p == board[0, 0] && p == board[1, 0] && p == board[2, 0]) return true;
+        if (p == board[0, 1] && p == board[1, 1] && p == board[2, 1]) return true;
+        if (p == board[0, 2] && p == board[1, 2] && p == board[2, 2]) return true;
         //3x Diagonálně
-        if(p == board[0,0] && p == board[0,1] && p == board[0,2]) return true;
-        if(p == board[1,0] && p == board[1,1] && p == board[1,2]) return true;
-        if(p == board[2,0] && p == board[2,1] && p == board[2,2]) return true;
+        if (p == board[0, 0] && p == board[1, 1] && p == board[2, 2]) return true;
+        if (p == board[0, 2] && p == board[1, 1] && p == board[2, 0]) return true;
         //Else
         return false;
     }
