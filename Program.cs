@@ -233,7 +233,7 @@ class GFG
         if (opponent == 'x') player = 'o';
 
         int inptcol = 0, inptrow = 0;
-        char[,] board = {{ 'x', '_', '_' },
+        char[,] board = {{ '_', '_', '_' },
           { '_', '_', '_' },
           { '_', '_', '_' }};
         while (inptcol != -1 & inptrow != -1)
