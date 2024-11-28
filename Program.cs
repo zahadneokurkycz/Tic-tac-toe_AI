@@ -2,6 +2,11 @@
 // next optimal move for a player 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection.Metadata;
+using System.Reflection.Metadata.Ecma335;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 class GFG
 {
@@ -10,6 +15,7 @@ class GFG
         public int row, col;
     };
 
+    
     static char player = 'x', opponent = 'o';
 
     // This function returns true if there are moves 
@@ -217,8 +223,7 @@ class GFG
             }
         }
 
-        Console.Write("The value of the best Move " +
-                  "is : {0}\n\n", bestVal);
+        Console.Write("The value of the best Move is : {0}\n\n", bestVal);
 
         return bestMove;
     }
@@ -226,6 +231,61 @@ class GFG
     // Driver code 
     public static void Main(String[] args)
     {
+        if(!File.Exists("./lang.json"))
+        {
+            Console.Write("Lang was not found\n\nInstalling now...");
+            string[] defaultjson = { "" };
+            Array.Resize(ref defaultjson, 31);
+            
+            //Soubor lang.json
+            defaultjson[0] = "{";
+            defaultjson[1] = "    \"Selected\": \"en\",";
+            defaultjson[2] = "    \"cz\":{";
+            defaultjson[3] = "        \"valOfBestMove\": \"Hodnota nejlepšího možného tahu: {0}\\n\\n\",";
+            defaultjson[4] = "        \"uvod\": \"Piškvorky\\n\\nPo každém kole budete muset zadat řádek a sloupec vašeho tahu.\\nPokud chcete ukončit hru, zadejte pro řádek nebo sloupec 0.\\n\\n\\n\",";
+            defaultjson[5] = "        \"playerDelect\": \"Jako kdo chcete hrát?\\nZadejte X nebo O: \",";
+            defaultjson[6] = "        \"tabulka\": \"\\n{0}|{1}|{2}\",";
+            defaultjson[7] = "        \"enterRow\": \"\\nVáš tah: Řádek: \",";
+            defaultjson[8] = "        \"enterCol\": \" Sloupec: \","; 
+            defaultjson[9] = "        \"invalidMove\": \"\\nNeplatný tah. Zkuste to znovu.\\n(Při dalším nepltném tahu bude váš taah přeskočen)\\n\\n\",";
+            defaultjson[10] = "        \"PlayerMove\": \"Váš tah je {0},{1}\",";
+            defaultjson[11] = "        \"AiMove\": \"Můj tah je: \",";
+            defaultjson[12] = "        \"AiMoveFormate\": \"Řádek: {0} Sloupec: {1}\\n\\n\",";
+            defaultjson[13] = "        \"AiWon\": \"\\n Vyhrál jsem!\\n\\n(Ukončete stisknutím jakéhokoliv tlačítka)\",";
+            defaultjson[14] = "        \"PlayerWon\": \"\\n\\n Vyhrál jsi! GRatuluji!\\n\\n(Ukončíte stisknutím jakéhokoliv tlačítka)\"";
+            defaultjson[15] = "    },";
+            defaultjson[16] = "    \"en\":{";
+            defaultjson[17] = "        \"valOfBestMove\": \"The value of the best Move is : {0}\\n\\n\",";
+            defaultjson[18] = "        \"uvod\": \"Tic Tac Toe\\n\\nAfter each round you will be asked to enter the row or column of your move.\\nIf you want to abort the game enter 0 for row or column.\\n\\n\\n\","; 
+            defaultjson[19] = "        \"playerDelect\": \"Who do you wanna play as?\\nType x or o: \",";
+            defaultjson[20] = "        \"tabulka\": \"\\n{0}|{1}|{2}\","; 
+            defaultjson[21] = "        \"enterRow\": \"\\nYour move: Row: \",";
+            defaultjson[22] = "        \"enterCol\": \" Col: \",";
+            defaultjson[23] = "        \"invalidMove\": \"\\nInvalid move. Please try again.\\n(If you do another invalid move your round will be skipped)\\n\\n\",";
+            defaultjson[24] = "        \"PlayerMove\": \"Your move is {0},{1}\","; 
+            defaultjson[25] = "        \"AiMove\": \"My move is: \",";
+            defaultjson[26] = "        \"AiMoveFormate\": \"ROW: {0} COL: {1}\\n\\n\",";
+            defaultjson[27] = "        \"AiWon\": \"\\n I won!\\n\\n(Exit by pressing any button)\",";
+            defaultjson[28] = "        \"PlayerWon\": \"\\n\\n Look, you won! Congrats on beating me!\\n\\n(Exit by pressing any button)\"";
+            defaultjson[29] = "    }";
+            defaultjson[30] = "}";
+            File.WriteAllLines("./lang.json", defaultjson);
+
+            Console.Write("Installed now. Press any key to terminate");
+            Console.ReadKey();
+            Environment.Exit(0);
+            
+        }
+#pragma warning disable CS8600 // Literál s hodnotou null nebo s možnou hodnotou null se převádí na typ, který nemůže mít hodnotu null.
+        JsonDocument langdoc = JsonSerializer.Deserialize<JsonDocument>(File.ReadAllText("./lang.json"));
+#pragma warning restore CS8600 // Literál s hodnotou null nebo s možnou hodnotou null se převádí na typ, který nemůže mít hodnotu null.
+#pragma warning disable CS8602 // Přístup přes ukazatel k možnému odkazu s hodnotou null
+        JsonElement lang = langdoc.RootElement;
+#pragma warning restore CS8602 // Přístup přes ukazatel k možnému odkazu s hodnotou null
+        JsonElement activelang = lang.GetProperty(lang.GetProperty("Selected").ToString());
+        Console.WriteLine(activelang.GetProperty("valOfBestMove"));
+
+
         //Format: row,col (-,|)
         Console.Write("Tic Tac Toe\n\nAfter each round you will be asked to enter the row or column of your move.\nIf you want to abort the game enter 0 for row or column.\n\n\n");
         Console.WriteLine("Who do you wanna play as?\nType x or o: ");
