@@ -227,15 +227,58 @@ class GFG
     public static void Main(String[] args)
     {
         //Format: row,col (-,|)
-        Console.Write("Tic Tac Toe\n\nAfter each round you will be asked to enter the row or column of your move.\nIf you want to abort the game enter 0 for row or column.\n\n");
+        Console.Write("Tic Tac Toe\n\nAfter each round you will be asked to enter the row or column of your move.\nIf you want to abort the game enter 0 for row or column.\n\n\n");
         Console.WriteLine("Who do you wanna play as?\nType x or o: ");
         opponent = Console.ReadKey().KeyChar;
         if (opponent == 'x') player = 'o';
 
         int inptcol = 0, inptrow = 0;
+        bool successinptcol,successinptrow;
         char[,] board = {{ '_', '_', '_' },
           { '_', '_', '_' },
           { '_', '_', '_' }};
+
+        
+        //If the player starts
+        if (opponent == 'x') {
+            Console.Write("\n{0}|{1}|{2}", board[0, 0], board[0, 1], board[0, 2]);
+            Console.Write("\n{0}|{1}|{2}", board[1, 0], board[1, 1], board[1, 2]);
+            Console.Write("\n{0}|{1}|{2}", board[2, 0], board[2, 1], board[2, 2]);
+    
+            Console.Write("\nYour move: Row: ");
+            successinptrow = int.TryParse(Console.ReadLine(), out inptrow);
+            inptrow--;
+    
+            Console.Write(" Col: ");
+            successinptcol = int.TryParse(Console.ReadLine(), out inptcol);
+            inptcol--;
+            Console.Clear();
+
+            //Is the move invalid?
+            if (board[inptrow, inptcol] != '_' || inptrow > 3 || inptcol > 3)
+            {
+                Console.WriteLine("\nInvalid move. Please try again.\n(If you do another invalid move your round will be skipped)\n\n");
+                Console.Write("\nYour move: Row: ");
+                successinptrow = int.TryParse(Console.ReadLine(), out inptrow);
+                inptrow--;
+
+                Console.Write(" Col: ");
+                successinptcol = int.TryParse(Console.ReadLine(), out inptcol);
+                inptcol--;
+
+                Console.WriteLine("Your move is {0},{1}", inptrow, inptcol);
+                if (board[inptrow, inptcol] == '_' && inptrow < 3 && inptcol < 3)
+                {
+                    board[inptrow, inptcol] = opponent;
+                }
+            }
+            else
+            {
+                board[inptrow, inptcol] = opponent;
+            }
+        }
+
+        //Standard game thread (AI starts)
         while (inptcol != -1 & inptrow != -1)
         {
             Move bestMove = findBestMove(board);
@@ -256,14 +299,15 @@ class GFG
 
 
             Console.Write("\nYour move: Row: ");
-            bool successinptrow = int.TryParse(Console.ReadLine(), out inptrow);
+            successinptrow = int.TryParse(Console.ReadLine(), out inptrow);
             inptrow--;
 
             Console.Write(" Col: ");
-            bool successinptcol = int.TryParse(Console.ReadLine(), out inptcol);
+            successinptcol = int.TryParse(Console.ReadLine(), out inptcol);
             inptcol--;
 
             Console.WriteLine("Your move is {0},{1}", inptrow, inptcol);
+            
             //Is the move invalid?
             if (board[inptrow, inptcol] != '_' || inptrow > 3 || inptcol > 3)
             {
@@ -275,7 +319,7 @@ class GFG
                 Console.Write(" Col: ");
                 successinptcol = int.TryParse(Console.ReadLine(), out inptcol);
                 inptcol--;
-                
+
                 Console.WriteLine("Your move is {0},{1}", inptrow, inptcol);
                 if (board[inptrow, inptcol] == '_' && inptrow < 3 && inptcol < 3)
                 {
