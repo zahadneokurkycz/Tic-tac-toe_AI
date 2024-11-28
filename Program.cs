@@ -228,6 +228,10 @@ class GFG
     {
         //Format: row,col (-,|)
         Console.Write("Tic Tac Toe\n\nAfter each round you will be asked to enter the row or column of your move.\nIf you want to abort the game enter 0 for row or column.\n\n");
+        Console.WriteLine("Who do you wanna play as?\nType x or o: ");
+        opponent = Console.ReadKey().KeyChar;
+        if (opponent == 'x') player = 'o';
+
         int inptcol = 0, inptrow = 0;
         char[,] board = {{ '_', '_', '_' },
           { '_', '_', '_' },
@@ -238,7 +242,7 @@ class GFG
 
             Console.Write("My move is: ");
             Console.Write("ROW: {0} COL: {1}\n\n", bestMove.row, bestMove.col);
-            board[bestMove.row, bestMove.col] = 'x';
+            board[bestMove.row, bestMove.col] = player;
             Console.Write("\n{0}|{1}|{2}", board[0, 0], board[0, 1], board[0, 2]);
             Console.Write("\n{0}|{1}|{2}", board[1, 0], board[1, 1], board[1, 2]);
             Console.Write("\n{0}|{1}|{2}", board[2, 0], board[2, 1], board[2, 2]);
@@ -252,11 +256,16 @@ class GFG
 
 
             Console.Write("\nYour move: Row: ");
-            inptrow = int.Parse(Console.ReadLine()) - 1;
+            bool successinptrow = int.TryParse(Console.ReadLine(), out inptrow);
+            inptrow--;
+
             Console.Write(" Col: ");
-            inptcol = int.Parse(Console.ReadLine()) - 1;
+            bool successinptcol = int.TryParse(Console.ReadLine(), out inptcol);
+            inptcol--;
+
             Console.WriteLine("{0},{1}", inptrow, inptcol);
             //Is the move invalid?
+            if (inptrow ==  or ) 
             if (board[inptrow, inptcol] != '_')
             {
                 Console.WriteLine("\nInvalid move. Please try again.\n(If you do another invalid move your round will be skipped)\n\n");
@@ -267,12 +276,12 @@ class GFG
                 Console.WriteLine("Your move is {0},{1}", inptrow, inptcol);
                 if (board[inptrow, inptcol] == '_')
                 {
-                    board[inptrow, inptcol] = 'o';
+                    board[inptrow, inptcol] = opponent;
                 }
             }
             else
             {
-                board[inptrow, inptcol] = 'o';
+                board[inptrow, inptcol] = opponent;
             }
 
             //Have the player won?
@@ -285,6 +294,7 @@ class GFG
                 Console.ReadKey();
                 Environment.Exit(0);
             }
+            Console.Clear();
         }
     }
 }
