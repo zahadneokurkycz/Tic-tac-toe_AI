@@ -233,7 +233,7 @@ class GFG
         if (opponent == 'x') player = 'o';
 
         int inptcol = 0, inptrow = 0;
-        char[,] board = {{ '_', '_', '_' },
+        char[,] board = {{ 'x', '_', '_' },
           { '_', '_', '_' },
           { '_', '_', '_' }};
         while (inptcol != -1 & inptrow != -1)
@@ -265,7 +265,7 @@ class GFG
 
             Console.WriteLine("{0},{1}", inptrow, inptcol);
             //Is the move invalid?
-            if (inptrow ==  or ) 
+            if (inptrow < 3 && inptcol < 3) 
             if (board[inptrow, inptcol] != '_')
             {
                 Console.WriteLine("\nInvalid move. Please try again.\n(If you do another invalid move your round will be skipped)\n\n");
