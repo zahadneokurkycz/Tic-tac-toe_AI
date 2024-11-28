@@ -265,7 +265,19 @@ class GFG
 
             Console.WriteLine("{0},{1}", inptrow, inptcol);
             //Is the move invalid?
-            if (inptrow < 3 && inptcol < 3) 
+            if (inptrow < 3 && inptcol < 3)
+            {
+                Console.WriteLine("\nInvalid move. Please try again.\n(If you do another invalid move your round will be skipped)\n\n");
+                Console.Write("\nYour move: Row: ");
+                inptrow = int.Parse(Console.ReadLine()) - 1;
+                Console.Write(" Col: ");
+                inptcol = int.Parse(Console.ReadLine()) - 1;
+                Console.WriteLine("Your move is {0},{1}", inptrow, inptcol);
+                if (board[inptrow, inptcol] == '_')
+                {
+                    board[inptrow, inptcol] = opponent;
+                }
+            }
             if (board[inptrow, inptcol] != '_')
             {
                 Console.WriteLine("\nInvalid move. Please try again.\n(If you do another invalid move your round will be skipped)\n\n");
